@@ -1,6 +1,9 @@
 package ru.rgordeev.samsung.model;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +20,7 @@ public class Person {
     private String lastName;
     private Integer age;
     private String bio;
+    private Set<File> avatar = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

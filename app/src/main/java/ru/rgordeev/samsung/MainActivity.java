@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
@@ -94,14 +97,32 @@ public class MainActivity extends AppCompatActivity {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.person, null);
 
-            PersonHolder holer = new PersonHolder();
-            holer.personName = convertView.findViewById(R.id.personName);
-            holer.personBio = convertView.findViewById(R.id.personBio);
+            PersonHolder holder = new PersonHolder();
+            holder.personName = convertView.findViewById(R.id.personName);
+            holder.personBio = convertView.findViewById(R.id.personBio);
+            holder.avatar = convertView.findViewById(R.id.avatar);
 
-            holer.personName.setText(String.format("%s %s", person.getName(), person.getLastName()));
-            holer.personBio.setText(person.getBio());
+            RequestOptions options = new RequestOptions()
+                    .fitCenter()
+                    .override(200, 200)
+                    .centerCrop()
+                    .transform(new RoundedCorners(10));
 
-            convertView.setTag(holer);
+            String imageId = "EMPTY";
+            if (!person.getAvatar().isEmpty()) {
+                imageId = person.getAvatar().iterator().next().getId().toString();
+            }
+            final String url = "http://10.0.2.2:8080/files/" + imageId;
+
+            Glide.with(getContext())
+                    .load(url)
+                    .apply(options)
+                    .into(holder.avatar);
+
+            holder.personName.setText(String.format("%s %s", person.getName(), person.getLastName()));
+            holder.personBio.setText(person.getBio());
+
+            convertView.setTag(holder);
             return convertView;
         }
     }
