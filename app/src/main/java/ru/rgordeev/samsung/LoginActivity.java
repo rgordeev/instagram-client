@@ -49,20 +49,22 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(List<Person> people) {
             String l = login.getText().toString();
             String p = password.getText().toString();
-            if (isSignIn(people, l, p)) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Long personId = isSignIn(people, l, p);
+            if (personId != null) {
+                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                intent.putExtra("personId", personId);
                 startActivity(intent);
             } else {
                 Toast.makeText(getApplicationContext(), "Login or password is wrong!", Toast.LENGTH_SHORT).show();
             }
         }
 
-        private boolean isSignIn(List<Person> people, String login, String password) {
+        private Long isSignIn(List<Person> people, String login, String password) {
             for (Person person: people) {
                 if (Objects.equals(login, person.getLogin()) && Objects.equals(password, person.getPassword()))
-                    return true;
+                    return person.getId();
             }
-            return false;
+            return null;
         }
 
         @Override

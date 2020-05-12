@@ -109,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
                     .transform(new RoundedCorners(10));
 
             String imageId = "EMPTY";
-            if (!person.getAvatar().isEmpty()) {
-                imageId = person.getAvatar().iterator().next().getId().toString();
+            if (person.getAvatar() != null) {
+                imageId = person.getAvatar().getId().toString();
             }
             final String url = "http://10.0.2.2:8080/files/" + imageId;
 
