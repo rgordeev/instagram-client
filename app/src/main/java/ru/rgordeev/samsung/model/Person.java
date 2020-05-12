@@ -20,7 +20,8 @@ public class Person {
     private String lastName;
     private Integer age;
     private String bio;
-    private Set<File> avatar = new HashSet<>();
+    private Set<File> images = new HashSet<>();
+    private File avatar;
 
     @Override
     public boolean equals(Object o) {
