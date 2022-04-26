@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             String p = password.getText().toString();
             Long personId = isSignIn(people, l, p);
             if (personId != null) {
-                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("personId", personId);
                 startActivity(intent);
             } else {
